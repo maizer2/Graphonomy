@@ -1,8 +1,1 @@
-./data/datasets/ATR/JPEGImages/*
-./data/datasets/ATR/SegmentationClassAug/*
-./data/datasets/ATR/SegmentationClassAug_rev/*
-./data/datasets/CIHP_4w/Category_ids/*
-./data/datasets/CIHP_4w/Category_rev_ids/*
-./data/datasets/CIHP_4w/Images/*
-./data/datasets/pascal/JPEGImages/*
-./data/datasets/pascal/SegmentationPart/*
+
