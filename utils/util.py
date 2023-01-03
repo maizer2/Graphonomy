@@ -211,10 +211,10 @@ def scale_tensor(input,size=512,mode='bilinear'):
     if mode == 'nearest':
         if h == 512 and w == 512:
             return input
-        return F.upsample_nearest(input,size=(size,size))
+        return F.interpolate_nearest(input,size=(size,size))
     if h>512 and w > 512:
-        return F.upsample(input, size=(size,size), mode=mode, align_corners=True)
-    return F.upsample(input, size=(size,size), mode=mode, align_corners=True)
+        return F.interpolate(input, size=(size,size), mode=mode, align_corners=True)
+    return F.interpolate(input, size=(size,size), mode=mode, align_corners=True)
 
 def scale_tensor_list(input,):
 
@@ -223,7 +223,7 @@ def scale_tensor_list(input,):
         output_item = []
         for j in range(len(input[i])):
             _, _, h, w = input[-1][j].size()
-            output_item.append(F.upsample(input[i][j], size=(h,w), mode='bilinear', align_corners=True))
+            output_item.append(F.interpolate(input[i][j], size=(h,w), mode='bilinear', align_corners=True))
         output.append(output_item)
     output.append(input[-1])
     return output
@@ -234,7 +234,7 @@ def scale_tensor_list_0(input,base_input):
     assert  len(input) == len(base_input)
     for j in range(len(input)):
         _, _, h, w = base_input[j].size()
-        after_size = F.upsample(input[j], size=(h,w), mode='bilinear', align_corners=True)
+        after_size = F.interpolate(input[j], size=(h,w), mode='bilinear', align_corners=True)
         base_input[j] = base_input[j] + after_size
     # output.append(output_item)
     # output.append(input[-1])

@@ -235,7 +235,7 @@ def main(opts):
                 outputs = outputs.unsqueeze(0)
 
                 if iii>0:
-                    outputs = F.upsample(outputs,size=(h,w),mode='bilinear',align_corners=True)
+                    outputs = F.interpolate(outputs,size=(h,w),mode='bilinear',align_corners=True)
                     outputs_final = outputs_final + outputs
                 else:
                     outputs_final = outputs.clone()

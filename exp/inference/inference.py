@@ -12,7 +12,7 @@ import torch
 from torch.autograd import Variable
 from torchvision import transforms
 import cv2
-
+from tqdm import tqdm
 
 # Custom includes
 from networks import deeplab_xception_transfer, graph
@@ -154,7 +154,7 @@ def inference(net, img_path='', output_path='./', output_name='f', use_gpu=True)
             outputs = outputs.unsqueeze(0)
 
             if iii > 0:
-                outputs = F.upsample(outputs, size=(h, w), mode='bilinear', align_corners=True)
+                outputs = F.interpolate(outputs, size=(h, w), mode='bilinear', align_corners=True)
                 outputs_final = outputs_final + outputs
             else:
                 outputs_final = outputs.clone()
@@ -168,17 +168,14 @@ def inference(net, img_path='', output_path='./', output_name='f', use_gpu=True)
     cv2.imwrite(output_path+'/{}_gray.png'.format(output_name), results[0, :, :])
 
     end_time = timeit.default_timer()
-    print('time used for the multi-scale image inference' + ' is :' + str(end_time - start_time))
 
 if __name__ == '__main__':
     '''argparse begin'''
     parser = argparse.ArgumentParser()
-    # parser.add_argument('--loadmodel',default=None,type=str)
-    parser.add_argument('--loadmodel', default='', type=str)
-    parser.add_argument('--img_path', default='', type=str)
-    parser.add_argument('--output_path', default='', type=str)
-    parser.add_argument('--output_name', default='', type=str)
-    parser.add_argument('--use_gpu', default=1, type=int)
+    parser.add_argument('--loadmodel', default='./data/pretrained_model/Graphonomy(PASCAL).pth', type=str)
+    parser.add_argument('--img_path', default='/data/DataSet/FASCODE_IMAGE/image/', type=str)
+    parser.add_argument('--output_path', default='/data/DataSet/FASCODE_IMAGE/parsing/', type=str)
+    parser.add_argument('--use_gpu', default=3, type=int)
     opts = parser.parse_args()
 
     net = deeplab_xception_transfer.deeplab_xception_transfer_projection_savemem(n_classes=20,
@@ -192,12 +189,21 @@ if __name__ == '__main__':
         print('no model load !!!!!!!!')
         raise RuntimeError('No model!!!!')
 
-    if opts.use_gpu >0 :
+    if opts.use_gpu > 0 :
         net.cuda()
         use_gpu = True
     else:
         use_gpu = False
         raise RuntimeError('must use the gpu!!!!')
 
-    inference(net=net, img_path=opts.img_path,output_path=opts.output_path , output_name=opts.output_name, use_gpu=use_gpu)
+    file_name = os.listdir(opts.img_path)
+
+    for idx, item in tqdm(enumerate(file_name)):
+        inference(
+            net         =   net, 
+            img_path    =   f"{opts.img_path}/{file_name[idx]}", 
+            output_path =   opts.output_path, 
+            output_name =   file_name[idx].split(".")[0], 
+            use_gpu     =   use_gpu
+            )
 

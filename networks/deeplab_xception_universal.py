@@ -85,7 +85,7 @@ class deeplab_xception_transfer_basemodel_savememory(deeplab_xception.DeepLabv3_
         x3 = self.aspp3(x)
         x4 = self.aspp4(x)
         x5 = self.global_avg_pool(x)
-        x5 = F.upsample(x5, size=x4.size()[2:], mode='bilinear', align_corners=True)
+        x5 = F.interpolate(x5, size=x4.size()[2:], mode='bilinear', align_corners=True)
 
         x = torch.cat((x1, x2, x3, x4, x5), dim=1)
 
@@ -93,7 +93,7 @@ class deeplab_xception_transfer_basemodel_savememory(deeplab_xception.DeepLabv3_
         x = self.concat_projection_bn1(x)
         x = self.relu(x)
         # print(x.size())
-        x = F.upsample(x, size=low_level_features.size()[2:], mode='bilinear', align_corners=True)
+        x = F.interpolate(x, size=low_level_features.size()[2:], mode='bilinear', align_corners=True)
 
         low_level_features = self.feature_projection_conv1(low_level_features)
         low_level_features = self.feature_projection_bn1(low_level_features)
@@ -131,7 +131,7 @@ class deeplab_xception_transfer_basemodel_savememory(deeplab_xception.DeepLabv3_
         x3 = self.aspp3(x)
         x4 = self.aspp4(x)
         x5 = self.global_avg_pool(x)
-        x5 = F.upsample(x5, size=x4.size()[2:], mode='bilinear', align_corners=True)
+        x5 = F.interpolate(x5, size=x4.size()[2:], mode='bilinear', align_corners=True)
 
         x = torch.cat((x1, x2, x3, x4, x5), dim=1)
 
@@ -139,7 +139,7 @@ class deeplab_xception_transfer_basemodel_savememory(deeplab_xception.DeepLabv3_
         x = self.concat_projection_bn1(x)
         x = self.relu(x)
         # print(x.size())
-        x = F.upsample(x, size=low_level_features.size()[2:], mode='bilinear', align_corners=True)
+        x = F.interpolate(x, size=low_level_features.size()[2:], mode='bilinear', align_corners=True)
 
         low_level_features = self.feature_projection_conv1(low_level_features)
         low_level_features = self.feature_projection_bn1(low_level_features)
@@ -174,7 +174,7 @@ class deeplab_xception_transfer_basemodel_savememory(deeplab_xception.DeepLabv3_
 
         ###
         x = self.semantic(x)
-        x = F.upsample(x, size=input.size()[2:], mode='bilinear', align_corners=True)
+        x = F.interpolate(x, size=input.size()[2:], mode='bilinear', align_corners=True)
 
         return x
 
@@ -256,7 +256,7 @@ class deeplab_xception_transfer_basemodel_savememory_synbn(deeplab_xception_synB
         x3 = self.aspp3(x)
         x4 = self.aspp4(x)
         x5 = self.global_avg_pool(x)
-        x5 = F.upsample(x5, size=x4.size()[2:], mode='bilinear', align_corners=True)
+        x5 = F.interpolate(x5, size=x4.size()[2:], mode='bilinear', align_corners=True)
 
         x = torch.cat((x1, x2, x3, x4, x5), dim=1)
 
@@ -264,7 +264,7 @@ class deeplab_xception_transfer_basemodel_savememory_synbn(deeplab_xception_synB
         x = self.concat_projection_bn1(x)
         x = self.relu(x)
         # print(x.size())
-        x = F.upsample(x, size=low_level_features.size()[2:], mode='bilinear', align_corners=True)
+        x = F.interpolate(x, size=low_level_features.size()[2:], mode='bilinear', align_corners=True)
 
         low_level_features = self.feature_projection_conv1(low_level_features)
         low_level_features = self.feature_projection_bn1(low_level_features)
@@ -302,7 +302,7 @@ class deeplab_xception_transfer_basemodel_savememory_synbn(deeplab_xception_synB
         x3 = self.aspp3(x)
         x4 = self.aspp4(x)
         x5 = self.global_avg_pool(x)
-        x5 = F.upsample(x5, size=x4.size()[2:], mode='bilinear', align_corners=True)
+        x5 = F.interpolate(x5, size=x4.size()[2:], mode='bilinear', align_corners=True)
 
         x = torch.cat((x1, x2, x3, x4, x5), dim=1)
 
@@ -310,7 +310,7 @@ class deeplab_xception_transfer_basemodel_savememory_synbn(deeplab_xception_synB
         x = self.concat_projection_bn1(x)
         x = self.relu(x)
         # print(x.size())
-        x = F.upsample(x, size=low_level_features.size()[2:], mode='bilinear', align_corners=True)
+        x = F.interpolate(x, size=low_level_features.size()[2:], mode='bilinear', align_corners=True)
 
         low_level_features = self.feature_projection_conv1(low_level_features)
         low_level_features = self.feature_projection_bn1(low_level_features)
@@ -345,7 +345,7 @@ class deeplab_xception_transfer_basemodel_savememory_synbn(deeplab_xception_synB
 
         ###
         x = self.semantic(x)
-        x = F.upsample(x, size=input.size()[2:], mode='bilinear', align_corners=True)
+        x = F.interpolate(x, size=input.size()[2:], mode='bilinear', align_corners=True)
 
         return x
 
@@ -453,7 +453,7 @@ class deeplab_xception_end2end_3d(deeplab_xception_transfer_basemodel_savememory
         x3 = self.aspp3(x)
         x4 = self.aspp4(x)
         x5 = self.global_avg_pool(x)
-        x5 = F.upsample(x5, size=x4.size()[2:], mode='bilinear', align_corners=True)
+        x5 = F.interpolate(x5, size=x4.size()[2:], mode='bilinear', align_corners=True)
 
         x = torch.cat((x1, x2, x3, x4, x5), dim=1)
 
@@ -461,7 +461,7 @@ class deeplab_xception_end2end_3d(deeplab_xception_transfer_basemodel_savememory
         x = self.concat_projection_bn1(x)
         x = self.relu(x)
         # print(x.size())
-        x = F.upsample(x, size=low_level_features.size()[2:], mode='bilinear', align_corners=True)
+        x = F.interpolate(x, size=low_level_features.size()[2:], mode='bilinear', align_corners=True)
 
         low_level_features = self.feature_projection_conv1(low_level_features)
         low_level_features = self.feature_projection_bn1(low_level_features)
@@ -672,7 +672,7 @@ class deeplab_xception_end2end_3d(deeplab_xception_transfer_basemodel_savememory
             # source_x = self.bottom_forward_source(source_x, source_graph)
             target_x = self.bottom_forward_target(x, target_graph)
 
-            target_x = F.upsample(target_x, size=input.size()[2:], mode='bilinear', align_corners=True)
+            target_x = F.interpolate(target_x, size=input.size()[2:], mode='bilinear', align_corners=True)
             return None, target_x, None
 
         if input_source is not None and input_target is None and input_middle is None:
@@ -692,7 +692,7 @@ class deeplab_xception_end2end_3d(deeplab_xception_transfer_basemodel_savememory
                                                                            adj6_transfer_m2t=adj6_transfer_m2t)
 
             source_x = self.bottom_forward_source(x, source_graph)
-            source_x = F.upsample(source_x, size=input.size()[2:], mode='bilinear', align_corners=True)
+            source_x = F.interpolate(source_x, size=input.size()[2:], mode='bilinear', align_corners=True)
             return source_x, None, None
 
         if input_middle is not None and input_source is None and input_target is None:
@@ -710,7 +710,7 @@ class deeplab_xception_end2end_3d(deeplab_xception_transfer_basemodel_savememory
                                                                            adj6_transfer_m2t=adj6_transfer_m2t)
 
             middle_x = self.bottom_forward_middle(x, source_graph)
-            middle_x = F.upsample(middle_x, size=input.size()[2:], mode='bilinear', align_corners=True)
+            middle_x = F.interpolate(middle_x, size=input.size()[2:], mode='bilinear', align_corners=True)
             return None, None, middle_x
 
 
@@ -804,7 +804,7 @@ class deeplab_xception_end2end_3d_synbn(deeplab_xception_transfer_basemodel_save
         x3 = self.aspp3(x)
         x4 = self.aspp4(x)
         x5 = self.global_avg_pool(x)
-        x5 = F.upsample(x5, size=x4.size()[2:], mode='bilinear', align_corners=True)
+        x5 = F.interpolate(x5, size=x4.size()[2:], mode='bilinear', align_corners=True)
 
         x = torch.cat((x1, x2, x3, x4, x5), dim=1)
 
@@ -812,7 +812,7 @@ class deeplab_xception_end2end_3d_synbn(deeplab_xception_transfer_basemodel_save
         x = self.concat_projection_bn1(x)
         x = self.relu(x)
         # print(x.size())
-        x = F.upsample(x, size=low_level_features.size()[2:], mode='bilinear', align_corners=True)
+        x = F.interpolate(x, size=low_level_features.size()[2:], mode='bilinear', align_corners=True)
 
         low_level_features = self.feature_projection_conv1(low_level_features)
         low_level_features = self.feature_projection_bn1(low_level_features)
@@ -1024,7 +1024,7 @@ class deeplab_xception_end2end_3d_synbn(deeplab_xception_transfer_basemodel_save
             # source_x = self.bottom_forward_source(source_x, source_graph)
             target_x = self.bottom_forward_target(x, target_graph)
 
-            target_x = F.upsample(target_x, size=input.size()[2:], mode='bilinear', align_corners=True)
+            target_x = F.interpolate(target_x, size=input.size()[2:], mode='bilinear', align_corners=True)
             return None, target_x, None
 
         if input_source is not None and input_target is None and input_middle is None:
@@ -1044,7 +1044,7 @@ class deeplab_xception_end2end_3d_synbn(deeplab_xception_transfer_basemodel_save
                                                                            adj6_transfer_m2t=adj6_transfer_m2t)
 
             source_x = self.bottom_forward_source(x, source_graph)
-            source_x = F.upsample(source_x, size=input.size()[2:], mode='bilinear', align_corners=True)
+            source_x = F.interpolate(source_x, size=input.size()[2:], mode='bilinear', align_corners=True)
             return source_x, None, None
 
         if input_middle is not None and input_source is None and input_target is None:
@@ -1062,7 +1062,7 @@ class deeplab_xception_end2end_3d_synbn(deeplab_xception_transfer_basemodel_save
                                                                            adj6_transfer_m2t=adj6_transfer_m2t)
 
             middle_x = self.bottom_forward_middle(x, source_graph)
-            middle_x = F.upsample(middle_x, size=input.size()[2:], mode='bilinear', align_corners=True)
+            middle_x = F.interpolate(middle_x, size=input.size()[2:], mode='bilinear', align_corners=True)
             return None, None, middle_x
 
 
